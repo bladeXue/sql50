@@ -1,5 +1,6 @@
 # 创建数据库
 create database sql50;
+use sql50;
 
 # 学生表
 create table Student(SId varchar(10),Sname varchar(10),Sage datetime,Ssex varchar(10));
