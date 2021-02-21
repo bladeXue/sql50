@@ -17,3 +17,4 @@ from (select * from SC as sc where sc.CId = '01') as t1
 # |05 |01 |76.0 |02  |87.0 |
 # |06 |01 |31.0 |NULL|NULL |
 # +---+---+-----+----+-----+
+

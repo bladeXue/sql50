@@ -27,27 +27,28 @@ where t1.courses = t2.courses
 # 或 直接自联结
 select *
 from Student
-where SId in (select t1.SId
-              from (
-                   # 获取全部成绩数据，course_count为和01同样的课程数目
-                       select sc1.SId, count(sc1.CId) as course_count
-                       from SC as sc1
-                                inner join
-                            (
-                                select CId
-                                from SC
-                                where SId = '01'
-                            ) as sc2
-                            on sc1.CId = sc2.CId
-                       group by sc1.SId
-                   ) as t1
-                       inner join
-                   (
-                       select count(CId) as cnt
-                       from SC
-                       where SId = '01'
-                   ) as t2
-                   on t1.course_count = t2.cnt)
+where SId in (
+    select t1.SId
+    from ( # 获取全部成绩数据，course_count为和01同样的课程数目
+             select sc1.SId, count(sc1.CId) as course_count
+             from SC as sc1
+                      inner join
+                  (
+                      select CId
+                      from SC
+                      where SId = '01'
+                  ) as sc2
+                  on sc1.CId = sc2.CId
+             group by sc1.SId
+         ) as t1
+             inner join
+         (
+             select count(CId) as cnt
+             from SC
+             where SId = '01'
+         ) as t2
+         on t1.course_count = t2.cnt
+);
 # n重子查询（不推荐）
 SELECT *
 FROM Student
@@ -96,3 +97,4 @@ WHERE sid IN
 # |03 |孙风   |1990-12-20 00:00:00|男   |
 # |04 |李云   |1990-12-06 00:00:00|男   |
 # +---+-----+-------------------+----+
+
